@@ -27,11 +27,27 @@ source_group(
         FILES
         ${sources})
 
+# Target SE+AE Skyrim with Address Library V5 (VR disabled)
+set(ENABLE_SKYRIM_SE ON CACHE BOOL "Enable Skyrim SE 1.5.97 support" FORCE)
+set(ENABLE_SKYRIM_AE ON CACHE BOOL "Enable Skyrim AE 1.6.x and 1.7.x support" FORCE)
+set(ENABLE_SKYRIM_VR OFF CACHE BOOL "Disable VR support" FORCE)
+set(BUILD_TESTS OFF CACHE BOOL "Disable CommonLib unit tests" FORCE)
+
 include(FetchContent)
-FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git GIT_TAG 3b15fa82ea74739b574d705fea44959b58142eb8) # Replace with your desired git commit from: https://github.com/libcpr/cpr/releases
+FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git GIT_TAG 3b15fa82ea74739b574d705fea44959b58142eb8)
 FetchContent_MakeAvailable(cpr)
-FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
-FetchContent_MakeAvailable(json)
+
+# Pin CommonLibSSE-NG to commit 07262cc2ae75777a422ed0c9621310fadef7c382 (tag: v15.7.3)
+FetchContent_Declare(
+    CommonLibSSE
+    GIT_REPOSITORY https://github.com/alandtse/CommonLibSSE-NG.git
+    GIT_TAG        07262cc2ae75777a422ed0c9621310fadef7c382 # tag: v15.7.3
+)
+FetchContent_MakeAvailable(CommonLibSSE)
+
+if(NOT COMMAND add_commonlibsse_plugin)
+    include("${commonlibsse_SOURCE_DIR}/cmake/CommonLibSSE.cmake")
+endif()
 
 # If you're not using a mod manager, you probably want the SKSE plugin to go
 # inside of your Skyrim "Data" folder.
@@ -58,9 +74,13 @@ endif()
 ## Configure target DLL
 ########################################################################################################################
 
-find_package(CommonLibSSE CONFIG REQUIRED)
+# CommonLibSSE is provided by FetchContent (v15.7.3)
+# find_package(CommonLibSSE CONFIG REQUIRED)
 
-add_commonlibsse_plugin(${PROJECT_NAME} SOURCES ${SOURCES}) # <--- specifies plugin.cpp
+add_commonlibsse_plugin(${PROJECT_NAME}
+    AUTHOR "Leidtier"
+    SOURCES ${SOURCES}
+) # <--- specifies plugin.cpp
 add_library("${PROJECT_NAME}::${PROJECT_NAME}" ALIAS "${PROJECT_NAME}")
 # target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23) # <--- use C++23 standard
 

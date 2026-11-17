@@ -1,0 +1,28 @@
+NOTICE - Third-Party Licensing and Combined Work Notice
+
+This project, SKSE_HTTP_sarkaar, is based on SKSE_HTTP by Leidtier and is licensed under the MIT License (see LICENSE).
+
+When compiled, this plugin statically links CommonLibSSE-NG (maintained by alandtse at https://github.com/alandtse/CommonLibSSE-NG, pinned at commit 07262cc2ae75777a422ed0c9621310fadef7c382, tag v15.7.3).
+
+CommonLibSSE-NG is licensed under the GNU General Public License v3.0 or later with exceptions:
+"GPL-3.0-or-later WITH Modding Exception AND GPL-3.0 Linking Exception (with Corresponding Source)"
+
+Verbatim excerpt from CommonLibSSE-NG README.md and EXCEPTIONS.md:
+--------------------------------------------------------------------------------
+"A plugin that statically links CommonLibSSE NG forms a combined work with it
+and must itself be licensed under the GPL-3.0-or-later (or a GPL-compatible
+license); see EXCEPTIONS.md for the exact terms."
+
+Modding Exception:
+"In addition, as a special exception, the authors give You the additional right to
+link the code of this Program with the existing code that this Program is intended
+to be used with or modify and to distribute linked combinations including the two,
+subject to the limitations in this paragraph. Modded Code permitted under this
+exception may link to the code of this Program without causing the Modded Code and
+portion of the combined work corresponding to the Modded Code to be covered by the
+GNU General Public License. You must obey the GNU General Public License in all
+respects for all of the Program code and other code used in conjunction with the
+Program except the Modded Code covered by this exception."
+--------------------------------------------------------------------------------
+
+Under the terms of the GNU General Public License v3.0, the resulting statically-linked binary (SKSE_HTTP.dll) is a combined work governed by the GPL-3.0-or-later. Any redistribution of the compiled binary must comply with the terms of the GNU GPL-3.0, including making corresponding source code available.
